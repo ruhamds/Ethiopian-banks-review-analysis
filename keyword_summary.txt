@@ -1,0 +1,72 @@
+
+Bank of Abyssinia:
+Top Keywords:
+  app: 356
+  not: 172
+  work: 129
+  bank: 82
+  update: 74
+  mobile: 65
+  bad: 62
+  banking: 62
+  time: 60
+  use: 59
+Top Bigrams:
+  mobile banking: 42
+  developer option: 29
+  banking app: 28
+  bad app: 19
+  👎 👎: 15
+  good app: 13
+  work properly: 11
+  bad mobile: 11
+  previous version: 10
+  keep crash: 9
+
+Commercial Bank of Ethiopia:
+Top Keywords:
+  app: 372
+  not: 194
+  transaction: 139
+  transfer: 112
+  work: 107
+  update: 105
+  bank: 98
+  time: 97
+  use: 90
+  good: 89
+Top Bigrams:
+  good app: 25
+  mobile banking: 22
+  developer option: 21
+  transfer money: 19
+  transaction history: 18
+  banking app: 16
+  recent transaction: 14
+  error message: 13
+  send money: 11
+  developer mode: 10
+
+Dashen Bank:
+Top Keywords:
+  app: 221
+  dashen: 102
+  good: 92
+  bank: 78
+  super: 74
+  banking: 71
+  fast: 46
+  feature: 46
+  easy: 44
+  use: 42
+Top Bigrams:
+  dashen bank: 57
+  super app: 46
+  dashen super: 22
+  good app: 21
+  mobile banking: 19
+  step ahead: 19
+  bank super: 18
+  banking app: 15
+  digital banking: 12
+  supper app: 11
