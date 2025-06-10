@@ -1,116 +1,78 @@
-# 🇪🇹 Ethiopian Banks Reviews Analysis
 
-This repository contains code for **scraping**, **cleaning**, and **analyzing** Google Play Store reviews for three major Ethiopian banks:
+Ethiopian Banks Reviews Analysis
+Project Overview
+This project analyzes Google Play Store reviews for three Ethiopian banks: Commercial Bank of Ethiopia (CBE), Bank of Abyssinia (BOA), and Dashen Bank (DB). The goal is to extract insights from ~1,200 reviews to identify user sentiment, themes, drivers, pain points, and recommend app improvements. The pipeline includes data collection, preprocessing, sentiment/thematic analysis, Oracle storage, and visualization.
+Repository
 
-- 🏦 **Commercial Bank of Ethiopia (CBE)**
-- 🏦 **Bank of Abyssinia (BOA)**
-- 🏦 **Dashen Bank**
+GitHub: https://github.com/ruhamds/Ethiopian-banks-review-analysis
+Branches: task-1, task-2, task-3, task-4, main
 
----
+Setup Instructions
 
-## ✅ Task 1: Data Collection and Preprocessing
+Clone Repository:git clone https://github.com/ruhamds/Ethiopian-banks-review-analysis.git
 
-### 📌 Methodology
 
-1. **Project Setup**
-   - Initialized GitHub repository with `.gitignore` and `requirements.txt`.
-   - Created and worked on the `task-1` branch with meaningful commits.
-   - Installed required libraries: `google-play-scraper`, `pandas`, etc.
+Create Virtual Environment:python -m venv venv
+.\venv\Scripts\activate
 
-2. **Web Scraping**
-   - Scraped **400+ reviews per bank** using `google-play-scraper`.
-   - Used multiple sorting strategies (Most Relevant, Newest, Rating).
-   - Collected fields:
-     - Review Text
-     - Rating (1–5)
-     - Date (normalized to `YYYY-MM-DD`)
-     - Bank/App Name
-     - Source (Google Play)
-   - Saved raw output to `raw_reviews.csv`.
 
-3. **Preprocessing**
-   - Removed duplicates based on `review_id`.
-   - Dropped rows with missing reviews or ratings.
-   - Cleaned review text and normalized fields.
-   - Ensured rating values are valid integers.
-   - Final cleaned dataset saved to `cleaned_reviews.csv`.
+Install Dependencies:pip install -r requirements.txt
 
----
 
-## ✅ Task 2: Sentiment and Thematic Analysis
+Run Notebooks:
+Open Jupyter: jupyter notebook
+Execute notebooks in order: scrape_reviews.ipynb, preprocess_reviews.ipynb, sentiment_analysis.ipynb, thematic_analysis.ipynb, oracle_database_setup.ipynb, insights_visualizations.ipynb.
 
-### 📌 Methodology
 
-#### 🧠 Sentiment Analysis
-- Used `VADER` (via `vaderSentiment` library) in `sentiment_analysis.ipynb`.
-- Classified reviews into: **Positive**, **Negative**, **Neutral**.
-- Calculated sentiment scores per review.
-- Aggregated sentiment by **bank** and **rating**.
-- Output saved as:
-  - `reviews_with_sentiment.csv`
-  - `sentiment_summary.csv`
 
-#### 💬 Thematic Analysis
-- Used `spaCy` and `TF-IDF` in `thematic_analysis.ipynb`.
-- Preprocessed text (tokenization, stopword removal, etc.).
-- Extracted top **keywords and bi-grams**.
-- Manually clustered into 3–5 themes per bank:
-  - e.g., *Account Access Issues*, *Transaction Performance*, *User Interface*
-- Output saved as:
-  - `reviews_with_themes.csv`
-  - `keyword_summary.txt`
+Tasks
+Task 1: Data Collection and Preprocessing
 
----
+Objective: Scrape ~400 reviews per bank, clean data.
+Methodology: Used scrape_reviews.ipynb for Google Play scraping, preprocess_reviews.ipynb for cleaning (e.g., remove duplicates, handle missing data).
+Outputs: cleaned_reviews.csv (~1,200 reviews).
 
-## 📁 Output Files
+Task 2: Sentiment and Thematic Analysis
 
-| File                         | Description                                  |
-|-----------------------------|----------------------------------------------|
-| `raw_reviews.csv`           | Raw scraped review data                      |
-| `cleaned_reviews.csv`       | Cleaned and preprocessed reviews             |
-| `reviews_with_sentiment.csv`| Reviews with sentiment labels and scores     |
-| `sentiment_summary.csv`     | Aggregated sentiment breakdown               |
-| `reviews_with_themes.csv`   | Reviews annotated with themes                |
-| `keyword_summary.txt`       | Top extracted keywords per bank              |
+Objective: Analyze sentiment and extract themes.
+Methodology: Used sentiment_analysis.ipynb with VADER for sentiment scores/labels, thematic_analysis.ipynb with spaCy for themes (e.g., “Account Access Issues”). Fixed CBE-only issue via standardized bank names.
+Outputs: reviews_with_sentiment.csv, sentiment_summary.csv, reviews_with_themes.csv, keyword_summary.txt.
 
----
+Task 3: Store Data in Oracle
 
-## 💻 Project Files
+Objective: Store reviews in an Oracle xe database.
+Methodology: Used oracle_database_setup.ipynb to create bank_reviews schema with Banks and Reviews tables, inserted ~1,200 reviews.
+Outputs: Populated Oracle database.
 
-| File Name                   | Purpose                                      |
-|----------------------------|----------------------------------------------|
-| `scrape_reviews.ipynb`     | Scraping reviews (Task 1)                    |
-| `preprocess_reviews.ipynb` | Cleaning and preprocessing (Task 1)          |
-| `sentiment_analysis.ipynb` | VADER-based sentiment analysis (Task 2)      |
-| `thematic_analysis.ipynb`  | Keyword extraction and thematic grouping     |
-| `requirements.txt`         | Python dependencies                         |
 
-> 🗂️ **Note:** CSV data files are not committed to GitHub to avoid size/clutter.
+Task 4: Insights and Recommendations
 
----
+Objective: Derive insights, visualize results, recommend improvements.
+Methodology: Used insights_visualizations.ipynb to create 4 visualizations (sentiment, ratings, themes, theme word cloud), identify drivers (e.g., UI), pain points (e.g., login issues), and suggest improvements. Used theme-based word cloud due to keyword mismatch issues.
+Outputs: sentiment_distribution.png, rating_distribution.png, theme_frequency.png, theme_cloud_negative and positive.png.
 
-## 🛠️ How to Run
+Dependencies
 
-```bash
-# 1. Clone the repository
-git clone https://github.com/ruhamds/Ethiopian-banks-review-analysis.git
-cd Ethiopian-banks-review-analysis
+Python 3.8+
+Libraries: pandas, matplotlib, seaborn, wordcloud, cx_Oracle, spacy, vaderSentiment
+Oracle database access
 
-# 2. Set up virtual environment (optional but recommended)
-python -m venv venv
-source venv/bin/activate  # or venv\Scripts\activate on Windows
+Notes
 
-# 3. Install dependencies
-pip install -r requirements.txt
-python -m spacy download en_core_web_sm
+Ensure Oracle credentials are configured for Task 3.
+Theme-based word cloud used in Task 4 due to keyword mismatch; verify with facilitators if acceptable.
 
-# 4. Launch Jupyter Notebook
-jupyter notebook
-```
+### Insights
+- **Scenario 1: Retaining Users**: Slow loading is a major issue for BOA (210 “Technical Issues”, -0.3 sentiment, 2.8 stars) and moderate for CBE (238 “Technical Issues”, 0.16 sentiment). DB’s positive “Transaction Performance” and high sentiment (0.46, 4.0 stars) support retention.
+- **Scenario 2: Enhancing Features**:  “App Functionality” (1805 mentions) and “Mobile Banking Services” (606) emphasize transfers. DB leads in satisfaction.
+- **Scenario 3: Managing Complaints**: Login errors dominate for CBE (~120 “Account Access Issues”, 238 “Technical Issues”) and BOA (210 “Technical Issues”). DB has minimal complaints.
 
----
+#### Recommendations
+1. **Optimize Transfer Speed**: BOA and CBE to upgrade backend for faster transfers, addressing “Technical Issues” (BOA: 210, CBE: 238).
+2. **Deploy AI Chatbot**: BOA and CBE to handle login errors in “Account Access Issues” and “Technical Issues”.
+3. **Enhance Transaction Features**: DB to add advanced transfer options to “App Functionality” (391).
 
-## 📬 Contact
+ 📬 Contact
 
-- 📧 Email: [ruheezrael@gmail.com](mailto:ruheezrael@gmail.com)  
-- 📦 GitHub: [github.com/ruhamds/Ethiopian-banks-review-analysis](https://github.com/ruhamds/Ethiopian-banks-review-analysis)
+- 📧 Email: [ruheezrael@gmail.com]  
+- 📦 GitHub: [github.com/ruhamds/Ethiopian-banks-review-analysis]
